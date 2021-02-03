@@ -1,0 +1,12 @@
+ _____ _             _   __           _   
+|_   _(_)           | | / /          | |  
+  | |  _ _ __  _   _| |/ /  __ _ _ __| |_ 
+  | | | | '_ \| | | |    \ / _` | '__| __|
+  | | | | | | | |_| | |\  \ (_| | |  | |_ 
+  \_/ |_|_| |_|\__, \_| \_/\__,_|_|   \__|
+                __/ |                      Closed Alpha 0.0.1
+               |___/                      
+
+This is the landing page for TinyKart. If you're here... well, hi. There's really no reason to be here. You won't find anything.
+
+What's TinyKart? TinyKart is a private server for LittleBigPlanet Karting. Find more details here:

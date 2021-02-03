@@ -1,0 +1,13 @@
+{
+  "name": "lbpkarting-server",
+  "version": "0.0.1",
+  "description": "A WIP private server for LittleBigPlanet Karting",
+  "main": "server.js",
+  "author": "Autumn Rivers",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite": "^4.0.19",
+    "sqlite3-lite": "^2020.8.19"
+  }
+}

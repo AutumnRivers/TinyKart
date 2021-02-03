@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+    <status>
+        <id>0</id>
+        <message>Successful completion</message>
+    </status>
+    <response>
+        <!-- Since this server is exclusively for LBPK, we don't need to add code for MDNR compatibility -->
+        <policy 
+            name="Beta Participation Agreement"
+            id="21"
+            is_accepted="true"
+        >
+        </policy>
+    </response>
+</result>
