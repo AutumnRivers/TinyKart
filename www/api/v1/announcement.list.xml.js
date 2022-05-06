@@ -4,16 +4,21 @@ const router = require('express').Router();
 const { open } = require('sqlite');
 const sql3 = require('sqlite3-lite');
 
+router.get('/', (req, res, next) => {
+    res.set('Content-Type', 'application/xml');
+    next();
+})
+
 open({
     filename: './database.sqlite',
     driver: sql3.Database
 }).then(database => {
-    const startXML = '<result><status><id>0</id><message>Successful completion</message></status><response><announcements>';
+    const startXML = '<result><status><id>0</id><message>Successful completion</message></status><response>';
     const endXML = '</announcements></response></result>';
     
     router.get('/', (req, res) => {
         getAnnouncements().then(finalResponse => {
-            if(!finalResponse) return res.status(500);
+            if(!finalResponse) return res.status(500).send('Internal server error');
             res.set('Content-Type', 'application/xml');
             res.send(finalResponse);
         });
@@ -42,7 +47,7 @@ open({
     
         const finalList = announcementList.join('');
     
-        const finalResponse = startXML + finalList + endXML;
+        const finalResponse = startXML + `<announcements total="${noOfAnnouncements}">` + finalList + endXML;
     
         return new Promise(resolve => {
             resolve(finalResponse);

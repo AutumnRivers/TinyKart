@@ -4,6 +4,7 @@ Timing out the request works, though... for some reason. */
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
+    console.log('Server being selected, timeoutting...')
     setTimeout(() => {}, 31000);
 })
 

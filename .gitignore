@@ -2,5 +2,8 @@
 # This is only temporary until I can include a few example levels
 /game/levels/*
 database.sqlite
+session_db.sqlite
 # This is only temporary until I make actual assets instead of placeholders
 /www/assets/*
+*.7z
+/security
