@@ -1,15 +1,25 @@
 {
-  "name": "lbpkarting-server",
+  "name": "tinykart",
   "version": "0.0.1",
   "description": "A WIP private server for LittleBigPlanet Karting",
   "main": "server.js",
   "author": "Autumn Rivers",
   "license": "GPL-3.0",
+  "scripts": {
+    "start": "node server.js",
+    "startlogs": "node server.js --show-box false > log.txt",
+    "startpm2": "pm2 start server.js --show-box false"
+  },
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "boxen": "5.1.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-session-sqlite": "^2.0.8",
     "sqlite": "^4.0.19",
     "sqlite3-lite": "^2020.8.19"
+  },
+  "optionalDependencies": {
+    "pm2": "^5.2.0"
   }
 }

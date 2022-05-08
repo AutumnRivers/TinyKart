@@ -1,4 +1,4 @@
-# TinyKart (Working(?) Title)
+# TinyKart
 WIP private server for LittleBigPlanet Karting, based off of [karting], a hybrid LBPK/MDNR server that's now defunct and was written in PHP.
 
 ---
@@ -29,3 +29,58 @@ Basic understanding of SQLite 3
 [karting]: https://github.com/Gamer4647/karting-archive
 [Express]: https://www.npmjs.com/package/express
 [RPCS3]: https://rpcs3.net/
+
+---
+
+## Running
+0. Clone the repository:
+    ```console
+    $ git clone https://github.com/AutumnRivers/TinyKart.git
+    ```
+
+1. Install the dependencies:
+    ```console
+    $ yarn --ignore-optional
+    ```
+    `npm install` works as well.  
+    Remove `--ignore-optional` if you plan to follow step 5 and use PM2 to keep the server running even during crashes. Do note, it's a BIG INSTALL.
+
+2. Rename `database_template.sqlite` to `database.sqlite`:
+    ```console
+    $ mv database_template.sqlite database.sqlite
+    ```
+    If you're on Windows, use Powershell!
+
+3. Generate HTTPS/SSL certificates for the Secure API
+    1. [Install mkcert](https://github.com/FiloSottile/mkcert/blob/master/README.md#installation)
+    2. Run the following code:
+        ```console
+        $ mkcert localhost
+        ```
+        (If hosting on a public server with a hostname such as `example.com` then change localhost to your hostname)
+        * You most likely will get an error about the certificate being self-signed in major browsers, which will prevent you from visiting the page. Don't panic, the game doesn't check for certificate issues, so it doesn't matter.
+    3. Place the files `localhost-key.pem` and `localhost.pem` in the `/security` folder.
+
+4. Start the server:
+    ```console
+    $ yarn start
+    ```
+    Or, if you'd prefer to have everything logged to a file:
+    ```console
+    $ yarn startlogs
+    ```
+    If using NPM:
+    ```console
+    $ npm run startlogs
+    ```
+
+5. OPTIONAL: If you'd like to keep the server running even when it crashes, you can install `pm2`. If you didn't add `--ignore-optional` to your original install command, you can run pm2 with the following command:
+    ```console
+    $ yarn startpm2
+    ```
+    Do note that there is no option to save to a log here, but [PM2 automatically outputs everything to a log file](https://stackoverflow.com/a/55828215/9146479).
+
+And that's all, the server should now be running.
+
+---
+
