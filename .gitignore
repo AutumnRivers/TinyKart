@@ -7,3 +7,7 @@ session_db.sqlite
 /www/assets/*
 *.7z
 /security
+/archivelogs
+log.txt
+test_error.txt
+/bombserver

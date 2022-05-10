@@ -1,6 +1,6 @@
 /*
     TinyKart
-    LittleBigPlanet Karting private server
+    LittleBigPlanet Karting emulated server
 
     Based off the LBPK/MDNR hybrid server, now defunct: https://github.com/Gamer4647/karting-archive
     Completely remade in NodeJS 14
@@ -28,6 +28,29 @@ const server = express();
 const altServer = express();
 
 const bodyParser = require('body-parser');
+
+// Exit handler
+const expectedExitHandler = () => {
+    console.info(`\n\nTinyKart is shutting down... Thanks for riding in the Imagisphere!`);
+    process.exit(0);
+}
+
+const unexpectedExitHandler = (err) => {
+    console.trace(err);
+    console.info("\n\nSomething has gone very, very wrong... TinyKart is shutting down!");
+    process.exit(1);
+}
+
+process.on('exit', expectedExitHandler);
+process.on('SIGINT', expectedExitHandler);
+process.on('SIGUSR1', expectedExitHandler);
+process.on('SIGUSR2', expectedExitHandler);
+process.on('uncaughtException', unexpectedExitHandler);
+
+// Debugs
+if(process.argv.includes('--test-crash')) {
+    throw new Error("This is a test crash, pls ignore thank you :)");
+}
 
 // Debug to make sure everyting works
 server.use((req, res, next) => {
@@ -72,7 +95,7 @@ server.use(session({
 
 // Okay, let's do things now.
 server.use(express.static('./www'));
-server.use('/resources', require('./www/api/v1.js'));
+server.use('/', require('./www/api/v1.js'));
 
 altServer.post('/session/login_np.xml', (req, res) => {
     res.sendFile(__dirname + '/www/session/login_np.xml');
@@ -80,30 +103,10 @@ altServer.post('/session/login_np.xml', (req, res) => {
 
 // Show landing page
 server.get('/', (req, res) => {
-    //res.status(400);
     res.sendFile(__dirname + '/www/misc/landing_page.txt');
 });
 
-server.post('/preferences.xml', (req, res) => {
-    res.status(200)
-    console.log('Preferences file sent: ' + req.body)
-    res.sendFile(__dirname + '/www/preferences.xml')
-})
-
-server.get('/policies/view.xml', (req, res) => {
-    res.status(200);
-    res.sendFile(__dirname + '/www/policy.xml')
-})
-
-server.post('/session/login_np.xml', (req, res) => {
-    console.log('Login being made')
-    res.status(200)
-})
-
 server.listen(serverPort);
-//altServer.listen(altPort);
-
-//https.createServer(httpsOptions, server).listen(serverPort);
 https.createServer(httpsOptions, altServer).listen(altPort);
 
 if(process.argv[2] == '--show-box' && process.argv[3] === 'false') {
@@ -118,7 +121,3 @@ if(process.argv[2] == '--show-box' && process.argv[3] === 'false') {
         textAlignment: 'center'
     }));
 }
-
-/*https.createServer(httpsOptions, server).listen(serverPort, () => {
-    console.info('TinyKart is running on port ' + serverPort);
-})*/

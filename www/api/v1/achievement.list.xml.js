@@ -10,9 +10,9 @@ const startXML = '<result><status><id>0</id><message>Successful completion</mess
 const endXML = '</response></result>';
 
 router.get('/', (req, res) => {
-    if(req.query.limit) limit = req.query('limit');
-    if(req.query.page) page = req.query('page');
-    if(req.query.per_page) per_page = req.query('per_page');
+    if(req.query.limit) limit = req.query.limit;
+    if(req.query.page) page = req.query.page;
+    if(req.query.per_page) per_page = req.query.per_page;
 
     limit = Math.min(Math.max(0, limit), 1000);
     page = Math.min(Math.max(0, page), 1000);

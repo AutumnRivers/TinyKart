@@ -1,13 +1,13 @@
-# TinyKart
+# ![TinyKart](./images/TinyKartBanner.png)
 WIP private server for LittleBigPlanet Karting, based off of [karting], a hybrid LBPK/MDNR server that's now defunct and was written in PHP.
 
 ---
 
 **Q: What can you do so far?**  
-A: At time of writing, you can accept the EULA. Exciting, I'm aware.
+A: Please look at [Features](#features) to see what has been done so far, and what is planned.
 
 **Q: Why remake the original server?**  
-A: NodeJS is faster (when well-optimized) and more modern than PHP. While [karting] uses Apache, TinyKart uses [Express], the fastest NodeJS webserver. **The original server was also abandoned for [ModNationServer](https://github.com/derole1/ModNationServer), which focuses *exclusively* on ModNation Racing.**
+A: NodeJS is faster (when well-optimized) and more modern than PHP. While [karting] uses Apache, TinyKart uses [Express], the fastest NodeJS webserver. **The original server was also abandoned for [ModnationServerEmu](https://github.com/derole1/ModnationServerEmu), which focuses *exclusively* on ModNation Racing.**
 
 **Q: How much has carried over from that server?**  
 A: If you want to be literal, nothing has. This is a complete rewrite. If you want to be technical... well, quite a bit has carried over. It's a rewrite, but it's still based off the current code. It's like putting it through a converter, sorta. Except this is all written by hand, I promise.
@@ -18,17 +18,61 @@ A: You should only be able to use it with [RPCS3]. It technically shouldn't be p
 **Q: Will this have a central server?**  
 A: That's the end goal, yeah. But for now, you will have to self-host.
 
+**Q: Is TinyKart associated with \<Other LittleBigPlanet Server\>?**  
+A: No. TinyKart is made completely by me and me alone. I'm not associated with any other server, nor any other developers. That being said, help is *always* welcome! If you're a LBP server developer and know a thing or two about how LBPK's backend works, hit me up on Discord! (Ohana#5434)
+
+**Q: How can I help support this project?**  
+A: There's a few ways:
+1. Contribute to the code!  
+    If you're a Node.JS developer like me, then you might be able to help me build this server. Do note that I have *very* specific contribution guidelines, but if you think something is right, don't be afraid to show me!
+2. Share it around!  
+    TinyKart relies on the community to have it spread. I don't have a blog or anything like that which I can post updates on, though I do have a Twitter and a Discord. If enough people share, then surely it'll end up coming across someone who can help contribute!
+3. Help create assets!  
+    I'll be the first to admit, I'm not much of an artist. If you have ideas for things like website mockups, logo designs, or other UI elements such as default avatars, then *please* show them to me!
+
 ---
 
-**Requirements**  
+## Features:
+Sorted in order from what's being worked on first -> what's being worked on last, it tends to be "easiest to make and most important" -> "harder to make and less important"
+* [x] Basic connection (accept EULA and view friends list)
+* [ ] Profile/Earth Viewing
+    * [x] Kinda. You can only view profiles if you can find a comment from the account, and even then, profile pictures are completely broken.
+* [ ] Story Level Leaderboards
+    * [x] [View Static Leaderboards](https://www.youtube.com/watch?v=EPwTjn_7nng)
+* [ ] Story Level Comments
+    * [x] [View Static Comments](https://www.youtube.com/watch?v=EPwTjn_7nng)
+* [ ] Upload Levels (Editing details comes later)
+* [ ] Download Levels
+* [ ] Custom Level Leaderboards
+* [ ] Edit Level Details
+* [ ] Copy Levels
+* [ ] Custom Level Comments
+* [ ] Decorate Earth
+* [ ] Customize Profile
+* [ ] Profile Comments
+* [ ] Actual multiplayer (with friends)
+* [ ] Administrator Panel
+* [ ] Matchmaking (This requires a remake of the BombProof server, which even the ModNation folks haven't been able to do yet)
+
+### Optional Features:
+These are in no particular order, and there's no guarantee they'll actually ever be added, because they are not necessary to the user experience at all.
+* [ ] Working Announcements System (This can just be replaced with a Twitter account or Discord server)
+* [ ] Discord Rich Presence (via special desktop client made specficially for TinyKart)
+* [ ] Web-Based Profiles (like lbp.me had)
+* [ ] IP Whitelisting (Allow users to log in only from IPs they add)
+* [ ] Separate Servers for RPCN and PSN (Do not hold your breath on this one)
+* [ ] Import Data from [Project Lighthouse](https://github.com/LBPUnion/ProjectLighthouse) (after it releases to the public)
+* [ ] New/Updated Profanity Filter (add new terms that might not have been in before, such as more obscure slurs and filter evades)
+* [ ] Add [ElasticStack](https://www.elastic.co/elastic-stack/) Support
+* [ ] Server-Side Profanity Check
+
+---
+
+## Requirements
 [NodeJS v14+](https://nodejs.org/en/download/)  
 NPM/Yarn ([Yarn](https://yarnpkg.com/getting-started/install) recommended)  
 Bash Shell ([Git Bash](https://git-scm.com/downloads) works perfectly fine for this)  
 Basic understanding of SQLite 3
-
-[karting]: https://github.com/Gamer4647/karting-archive
-[Express]: https://www.npmjs.com/package/express
-[RPCS3]: https://rpcs3.net/
 
 ---
 
@@ -84,3 +128,11 @@ And that's all, the server should now be running.
 
 ---
 
+# Legal Notice
+I am not associated or affiliated with Sony Entertainment, Media Molecule, or any other teams that worked on LittleBigPlanet™ Karting. I have never once worked for any of these teams, as well, so this is all original code that has been reverse-engineered from [LittleBigArchive's Packet Captures](https://littlebigarchive.com/LittleBigPlanet-Karting/).
+
+---
+
+[karting]: https://github.com/Gamer4647/karting-archive
+[Express]: https://www.npmjs.com/package/express
+[RPCS3]: https://rpcs3.net/

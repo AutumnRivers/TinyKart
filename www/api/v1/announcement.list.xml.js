@@ -1,6 +1,8 @@
 // woo our first js file!
 const router = require('express').Router();
 
+const XML2JS = require('xml2js');
+
 const { open } = require('sqlite');
 const sql3 = require('sqlite3-lite');
 
@@ -13,8 +15,24 @@ open({
     filename: './database.sqlite',
     driver: sql3.Database
 }).then(database => {
-    const startXML = '<result><status><id>0</id><message>Successful completion</message></status><response>';
-    const endXML = '</announcements></response></result>';
+    const xmlBuilder = new XML2JS.Builder({ headless: true });
+
+    const announcementObject = {
+        result: {
+            status: {
+                id: 0,
+                message: 'Successful completion'
+            },
+            response: {
+                announcements: {
+                    $: {
+                        total: 0
+                    },
+                    announcement: []
+                }
+            }
+        }
+    };
     
     router.get('/', (req, res) => {
         getAnnouncements().then(finalResponse => {
@@ -39,19 +57,28 @@ open({
             if(!announcement.modified_at) announcementModifiedDate = announcement.created_at;
     
             noOfAnnouncements++;
-    
-            var anncmnt = `<announcement id="${announcement.id}" subject="${announcement.subject}" language_code="${announcement.language_code}" created_at="${announcement.created_at}" modified_at="${announcementModifiedDate}">${announcement.text}</announcement>`;
+
+            let anncmnt = {
+                $: {
+                    id: announcement.id,
+                    subject: announcement.subject,
+                    language_code: announcement.language_code,
+                    created_at: announcement.created_at,
+                    modified_at: announcement.modified_at
+                },
+                _: announcement.text
+            }
     
             announcementList.push(anncmnt);
         });
     
-        const finalList = announcementList.join('');
-    
-        const finalResponse = startXML + `<announcements total="${noOfAnnouncements}">` + finalList + endXML;
+        announcementObject.result.response.announcements.announcement = announcementList;
+        announcementObject.result.response.announcements.$.total = noOfAnnouncements;
     
         return new Promise(resolve => {
-            resolve(finalResponse);
-        })
+            const xml = xmlBuilder.buildObject(announcementObject);
+            resolve(xml);
+        });
     
     }
 })
