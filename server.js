@@ -20,7 +20,7 @@ const sqliteStoreFactory = require('express-session-sqlite').default;
 const https = require('https');
 
 const { open } = require('sqlite');
-const sql3 = require('sqlite3-lite');
+const sql3 = require('sqlite3');
 
 const SqliteStore = sqliteStoreFactory(session);
 
@@ -54,8 +54,8 @@ if(process.argv.includes('--test-crash')) {
 
 // Debug to make sure everyting works
 server.use((req, res, next) => {
-    console.log('CONNECTION RECEIVED. USER AGENT: ' + req.get('User-Agent') + ' at ' + (new Date).toString());
-    console.log('Above connection tried to connect to ' + req.url + ' with the ' + req.method + ' method.');
+    //console.log('CONNECTION RECEIVED. USER AGENT: ' + req.get('User-Agent') + ' at ' + (new Date).toString());
+    //console.log('Above connection tried to connect to ' + req.url + ' with the ' + req.method + ' method.');
     next();
 })
 

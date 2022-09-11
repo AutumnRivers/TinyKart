@@ -6,6 +6,9 @@ const router = require('express').Router();
 const static = require('express').static;
 const path = require('path');
 
+const upload = require('multer')();
+const bodyParser = require('body-parser');
+
 const successXML = path.join(__dirname + '../../success.xml');
 
 router.use('/resources', static(__dirname + '/v1/static'));
@@ -25,7 +28,9 @@ router.get('/policies/view.xml', (req, res) => {
     res.sendFile(path.join(__dirname + '../../policy.xml'));
 });
 
-router.post('/session/set_presence.xml', (req, res) => {
+router.post('/session/set_presence.xml', bodyParser.text({ type: '*/*' }), (req, res) => {
+    console.log('Presence: ' + req.body.split('presence=').join(''))
+    res.set({'X-Status-ID': '0', 'X-Status-Message': 'Successful completion', 'Status': '200', 'Content-Type': 'application/xml;charset=utf-8'});
     res.status(200);
     res.sendFile(successXML);
 });
@@ -48,6 +53,15 @@ router.get('/player_profile/view.xml', (req, res) => {
 router.post('/player_creations/verify.xml', (req, res) => {
     res.status(200);
     res.sendFile(path.join(__dirname, '../player_creations/verify.xml'));
+})
+
+router.post('/player_creation_comments.xml', bodyParser.text({ type: '*/*' }), (req, res) => {
+    const decoded = decodeURI(req.body);
+    const response = decoded.split('&');
+    const commentBody = response[0].split('=')[1];
+    console.log(response);
+    console.log(commentBody + '\n');
+    res.sendFile(successXML);
 })
 
 module.exports = router;

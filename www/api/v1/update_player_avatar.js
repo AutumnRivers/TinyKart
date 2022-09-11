@@ -3,15 +3,26 @@ const upload = require('multer')();
 const fs = require('fs');
 const path = require('path');
 
-router.use(upload.single('player_avatar[avatar]'));
+router.use(upload.fields([
+    {
+        name: 'player_avatar[avatar]',
+        maxCount: 4
+    },
+    {
+        name: 'player_avatar[player_avatar_type]',
+        maxCount: 4
+    }
+]));
 
 router.post('/update.xml', (req, res) => {
-    const avatar = req.file;
+    const avatar = req.files['player_avatar[avatar]'][0];
 
     if(!avatar) res.status(400);
     if(!avatar) res.send('Missing Avatar');
 
-    fs.writeFile(path.join(__dirname + '../../../assets/players/debug.png'), avatar.buffer, 'binary', (err) => {
+    const emotion = req.files['player_avatar[player_avatar_type]'] || 'unknown';
+
+    fs.writeFile(path.join(__dirname + `../../../assets/players/debug_${emotion}.png`), avatar.buffer, 'binary', (err) => {
         if(!err) {
             console.log("Avatar updated successfully :)");
         } else {

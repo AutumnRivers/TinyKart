@@ -43,7 +43,8 @@ router.post('/', (req, res) => {
     const finalResponse = xmlBuilder.buildObject(preferencesObject);
 
     res.set('Content-Type', 'application/xml');
-    res.send(finalResponse)
+    res.cookie('playco', 'BAh7C0kiD3Nlc3Npb25faWQGOgZFRiJFYmQ2MGFjYTc0ZGJhOTE3YWNmNjhk\nMDA0MGIyZjU5MTJjY2FjNjUyMWI3OTU2MGEwMjRkMzM5MGI2MGVlZjU1NUki\nC2RvbWFpbgY7AEZJIgAGOwBUSSISbGFuZ3VhZ2VfY29kZQY7AEZJIgplbi11\ncwY7AFRJIhByZWdpb25fY29kZQY7AEZJIglzY2VhBjsAVEkiDXRpbWV6b25l\nBjsARkkiCS0zMDAGOwBUSSINcGxhdGZvcm0GOwBGSSIIUFMzBjsAVA==\n--8e68a09f4c4485335b695fc22474cf2a37bbb18c', { httpOnly: true, path: '/' });
+    res.send(finalResponse);
 })
 
 module.exports = router;

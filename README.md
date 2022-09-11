@@ -14,6 +14,7 @@ A: If you want to be literal, nothing has. This is a complete rewrite. If you wa
 
 **Q: Can I use this with [RPCS3]/RCN?**  
 A: You should only be able to use it with [RPCS3]. It technically shouldn't be possible to do this with an unmodified PS3, but hey, anything's possible.  
+Please check the repository wiki for steps you need to take to connect to a TinyKart instance.  
   
 **Q: Will this have a central server?**  
 A: That's the end goal, yeah. But for now, you will have to self-host.
@@ -35,12 +36,14 @@ A: There's a few ways:
 ## Features:
 Sorted in order from what's being worked on first -> what's being worked on last, it tends to be "easiest to make and most important" -> "harder to make and less important"
 * [x] Basic connection (accept EULA and view friends list)
-* [ ] Profile/Earth Viewing
-    * [x] Kinda. You can only view profiles if you can find a comment from the account, and even then, profile pictures are completely broken.
 * [ ] Story Level Leaderboards
     * [x] [View Static Leaderboards](https://www.youtube.com/watch?v=EPwTjn_7nng)
 * [ ] Story Level Comments
     * [x] [View Static Comments](https://www.youtube.com/watch?v=EPwTjn_7nng)
+
+### NOTICE: Everything from here in out is sort of completely majorly broken. Might be due to something with sessions...
+I'll continue to sneak around and read connection logs, try to figure out why the game is reacting the way it does. As it stands right now, the game never requests Earth data, which seems pretty integral to... literally everything below.
+* [ ] Profile/Earth Viewing
 * [ ] Upload Levels (Editing details comes later)
 * [ ] Download Levels
 * [ ] Custom Level Leaderboards
@@ -51,8 +54,10 @@ Sorted in order from what's being worked on first -> what's being worked on last
 * [ ] Customize Profile
 * [ ] Profile Comments
 * [ ] Actual multiplayer (with friends)
+* [ ] Matchmaking (This requires a remake of the BombProof server, which isn't impossible...)
+
+### Shouldn't need Earth viewing unlike above but is still low priority
 * [ ] Administrator Panel
-* [ ] Matchmaking (This requires a remake of the BombProof server, which even the ModNation folks haven't been able to do yet)
 
 ### Optional Features:
 These are in no particular order, and there's no guarantee they'll actually ever be added, because they are not necessary to the user experience at all.
@@ -69,10 +74,11 @@ These are in no particular order, and there's no guarantee they'll actually ever
 ---
 
 ## Requirements
-[NodeJS v14+](https://nodejs.org/en/download/)  
-NPM/Yarn ([Yarn](https://yarnpkg.com/getting-started/install) recommended)  
-Bash Shell ([Git Bash](https://git-scm.com/downloads) works perfectly fine for this)  
-Basic understanding of SQLite 3
+* [NodeJS v14+](https://nodejs.org/en/download/)  
+* NPM/Yarn ([Yarn](https://yarnpkg.com/getting-started/install) recommended) 
+    * If using Yarn, only [Yarn 2+](https://yarnpkg.com/getting-started/migration) is officially supported.
+* Bash Shell ([Git Bash](https://git-scm.com/downloads) works perfectly fine for this)  
+* Basic understanding of SQLite 3
 
 ---
 

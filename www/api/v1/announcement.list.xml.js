@@ -4,7 +4,7 @@ const router = require('express').Router();
 const XML2JS = require('xml2js');
 
 const { open } = require('sqlite');
-const sql3 = require('sqlite3-lite');
+const sql3 = require('sqlite3');
 
 router.get('/', (req, res, next) => {
     res.set('Content-Type', 'application/xml');

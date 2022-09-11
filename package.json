@@ -6,7 +6,7 @@
   "author": "Autumn Rivers",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.js --tls-min-v1.0",
     "startlogs": "node server.js --show-box false > log.txt",
     "startpm2": "pm2 start server.js --show-box false"
   },
@@ -16,12 +16,13 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-session-sqlite": "^2.0.8",
-    "multer": "^1.4.4",
+    "multer": "1.4.5-lts.1",
     "sqlite": "^4.0.19",
-    "sqlite3-lite": "^2020.8.19",
+    "sqlite3": "^5.0.11",
     "xml2js": "^0.4.23"
   },
   "optionalDependencies": {
     "pm2": "^5.2.0"
-  }
+  },
+  "packageManager": "yarn@3.2.2"
 }

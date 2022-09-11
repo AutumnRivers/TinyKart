@@ -8,9 +8,10 @@
         <login_data
             player_id="420"
             player_name="AutumnRivers"
-            presence="INGAME"
+            presence="ONLINE"
             platform="PS3"
-            ip_address=""
+            login_time="2022-08-17T20:00:00+00:00"
+            ip_address="127.0.0.1"
         ></login_data>
     </response>
 </result>
