@@ -5,39 +5,42 @@
     Based off the LBPK/MDNR hybrid server, now defunct: https://github.com/Gamer4647/karting-archive
     Completely remade in NodeJS 14
 */
-const boxen = require('boxen');
 
+// Terminal output
+const boxen = require('boxen'); // Optional
+const s = require('./modules/terminaldeco');
+
+// Built-in Modules
 const fs = require('fs');
+const https = require('https');
 
 const serverPort = 10050;
 const altPort = 10051;
 
+// SQLite
+const SQLite3 = require('better-sqlite3');
+const sessionDB = new SQLite3('./session_db.sqlite');
+const SQLite3Session = require('express-session-better-sqlite3');
+
+// Express
 const express = require('express');
-
 const session = require('express-session');
-const sqliteStoreFactory = require('express-session-sqlite').default;
-
-const https = require('https');
-
-const { open } = require('sqlite');
-const sql3 = require('sqlite3');
-
-const SqliteStore = sqliteStoreFactory(session);
-
+const SQLite3SessionStore = SQLite3Session(session, sessionDB);
 const server = express();
 const altServer = express();
-
 const bodyParser = require('body-parser');
 
 // Exit handler
 const expectedExitHandler = () => {
-    console.info(`\n\nTinyKart is shutting down... Thanks for riding in the Imagisphere!`);
+    console.info('\n' + s.diag.informDiag + "TinyKart is shutting down... Thanks for riding in the Imagisphere!");
     process.exit(0);
 }
 
 const unexpectedExitHandler = (err) => {
     console.trace(err);
-    console.info("\n\nSomething has gone very, very wrong... TinyKart is shutting down!");
+    fs.mkdirSync('./errors', { recursive: true });
+    fs.writeFileSync(`./errors/${new Date().toISOString()}.txt`);
+    console.info('\n' + s.diag.mErrorDiag + "Something has gone very, very wrong... TinyKart is shutting down!");
     process.exit(1);
 }
 
@@ -54,14 +57,17 @@ if(process.argv.includes('--test-crash')) {
 
 // Debug to make sure everyting works
 server.use((req, res, next) => {
-    //console.log('CONNECTION RECEIVED. USER AGENT: ' + req.get('User-Agent') + ' at ' + (new Date).toString());
-    //console.log('Above connection tried to connect to ' + req.url + ' with the ' + req.method + ' method.');
+    if(process.env.TINYKART_ENV == 'dev' || process.argv.includes('--debug')) {
+        const method = req.method == 'GET' ? s.methods.getMethod : req.method == 'POST' ? s.methods.postMethod : s.methods.unknownMethod;
+        console.log(s.diag.debugDiag + s.misc.incomingConnection + req.get('User-Agent') + ' at ' + (new Date).toString());
+        console.log(s.diag.debugDiag + 'Above connection tried to connect to ' + req.url + ' with the ' + method + ' method.\n');
+    }
     next();
 })
 
 altServer.use((req, res, next) => {
     bodyParser.raw();
-    console.log(`----- Connection to alternative server. -----\nRequest URL: ${req.url}\nRequest method: ${req.method}\nRequest body: ${req.body}\n----- End connection details -----`);
+    console.log(s.misc.incomingConnection + `\n----- Connection to alternative server. -----\nRequest URL: ${req.url}\nRequest method: ${req.method}\nRequest body: ${req.body}\n----- End connection details -----`);
     next();
 })
 
@@ -83,11 +89,7 @@ const httpsOptions = {
 
 // Set up session stuff
 server.use(session({
-    store: new SqliteStore({
-        driver: sql3.Database,
-        path: './session_db.sqlite',
-        ttl: 5000 //14400000 // I actually don't fully know what this does but 4 hours seems good
-    }),
+    store: new SQLite3SessionStore(),
     resave: true,
     saveUninitialized: false,
     secret: process.env.TINYKART_SECRET // environment variable. if self hosting you can probably just use a blank value but you need SOMETHING here otherwise Express will yell at you. if using a public server i'd recommend generating a secure password.
@@ -110,9 +112,10 @@ server.listen(serverPort);
 https.createServer(httpsOptions, altServer).listen(altPort);
 
 if(process.argv[2] == '--show-box' && process.argv[3] === 'false') {
-    console.log("Not logging box style due to command line argument.\n\n" + `TinyKart's API is running on port ${serverPort}\nTinyKart's Secure API is running on port ${altPort}`);
+    console.log(s.diag.informDiag + "Not logging box style due to command line argument.\n\n" + `TinyKart's API is running on port ${serverPort}\nTinyKart's Login API is running on port ${altPort}`);
+    if(process.env.TINYKART_ENV == 'dev' || process.argv.includes('--debug')) console.log(s.diag.debugDiag + "Debug mode is enabled.");
 } else {
-    console.log(boxen(`TinyKart's API is running on port ${serverPort}\nTinyKart's Secure API is running on port ${altPort}\n\nEverything gets logged here. To log to a file, run "yarn startlogs"`, {
+    console.log(boxen(`TinyKart's API is running on port ${serverPort}\nTinyKart's Login API is running on port ${altPort}\n\nEverything gets logged here. To log to a file, run "yarn startlogs"`, {
         title: `TinyKart v${require('./package.json').version}`,
         titleAlignment: 'left',
         borderStyle: 'round',
@@ -120,4 +123,5 @@ if(process.argv[2] == '--show-box' && process.argv[3] === 'false') {
         float: 'center',
         textAlignment: 'center'
     }));
+    if(process.env.TINYKART_ENV == 'dev' || process.argv.includes('--debug')) console.log(s.diag.debugDiag + "Debug mode is enabled. You'll see a lot more stuff logged.");
 }

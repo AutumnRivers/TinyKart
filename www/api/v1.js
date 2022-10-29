@@ -59,8 +59,6 @@ router.post('/player_creation_comments.xml', bodyParser.text({ type: '*/*' }), (
     const decoded = decodeURI(req.body);
     const response = decoded.split('&');
     const commentBody = response[0].split('=')[1];
-    console.log(response);
-    console.log(commentBody + '\n');
     res.sendFile(successXML);
 })
 
