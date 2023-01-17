@@ -1,0 +1,9 @@
+January 17, 2023 - TinyKart is officially deprecated!
+
+With the announcement (and subsequent public-ing) of PL Garage, TinyKart doesn't really need to exist anymore. This isn't a bad thing - I love that LBPK servers are making great progress! The whole reason for TinyKart's existence is that it was going to fill that void of LBPK private servers not existing, or no longer being worked on. 
+
+Who knows, I might come back to this project in the future. The chances of it happening are astronomically low, however. I've got a bunch of other projects that need my attention, both programming and non-programming alike.
+
+If you looked at the README, then you would probably know not much has been done with this project. Its biggest accomplishment was pushing past the initial connection issues and managing to log the user in, but that was about it. Earth data didn't load, it was still serving static data for the most part, etc. PL Garage is many, many steps ahead of this project - so I don't really see any reason for me to continue this one. If you wanna take the code and run off with it, making your own server, go ahead. With the release of this deprecation notice, all of the code and assets are in the public domain now, anyway.
+
+Well, that's all from me. If you ever wanna hang out on LBP2 via Project Ligthouse or do some LBP3 co-op levels together on the official servers, feel free to hit me up via Discord. (Ohana#5434) And when PL Garage officially releases, I'd love to do some races with any fellow LBPK fans. Until next time, peace! ✌

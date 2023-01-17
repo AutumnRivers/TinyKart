@@ -3,6 +3,11 @@ WIP private server for LittleBigPlanet Karting, based off of [karting], a hybrid
 
 ---
 
+# Notice of Deprecation
+With the announcement of [PL Garage](https://www.lbpunion.com/post/littlebigplanet-karting-custom-servers-pl-garage), TinyKart no longer has any reason to be in development. For more information, read [Notice_Of_Deprecation.txt](./Notice_Of_Deprecation.txt). This repository will not officially be worked on any further.
+
+---
+
 **Q: What can you do so far?**  
 A: Please look at [Features](#features) to see what has been done so far, and what is planned.
 
